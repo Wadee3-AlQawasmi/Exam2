@@ -1,0 +1,102 @@
+﻿@model VmEmployee
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>EmployeeView</title>
+    <link href="~/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/twitter-bootstrap/js/bootstrap.js"></script>
+</head>
+<body>
+    <form method="post" enctype="multipart/form-data">
+        <div class="row" style="margin-top:20px;">
+            <div class="col-xs-6">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>
+                                Image
+                            </th>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Phone
+                            </th>
+                            <th>
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var e in Model.LiEmployee)
+                        {
+                            <tr>
+                                <td>
+                                    <img src='@e.Path' />
+                                </td>
+                                <td>
+                                    @e.Name
+                                </td>
+                                <td>
+                                    @e.phone
+
+                                </td>
+                                <td>
+                                    <a asp-action="Delete" asp-route-ID="@e.ID"> Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div class="row" style="margin-left: 40px;font-size: 40px;">
+            New Employee
+        </div>
+        <div class="row" style="margin-left: 40px;">
+            <div class="col-xs-12">
+                <div>
+                    Name
+                </div>
+                <div>
+                    <input type="text" asp-for="employee.Name" />
+                </div>
+                <div>
+                    Phone
+                </div>
+                <div>
+                    <input type="text" asp-for="employee.phone" />
+                </div>
+                <div>
+                    Email
+                </div>
+                <div>
+                    <input type="text" asp-for="employee.Email" />
+                </div>
+                <select asp-for="employee.Country_ID" asp-items='new SelectList (Model.LiCounrty,"ID","Name")'>
+                </select>
+                <div>
+                    Birth Date
+                </div>
+                <div>
+                    <input type="text" asp-for="employee.BirthDate" />
+                </div>
+
+                <input type="file" id="Btn" style="display:none;" asp-for="employee.Path" />
+                <label for="Btn" class="btn btn-danger">Upload</label>
+                <div>
+                    <input type="submit" value="Save" class="btn btn-primary" asp-action="SaveData" />
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
